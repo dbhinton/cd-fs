@@ -1,3 +1,4 @@
+import React from "react"
 import { useEffect, useState } from "react"
 import { Department } from "../models/Models"
 import api from "../utils/api"
@@ -32,7 +33,7 @@ export const DepartmentList = () => {
 		<h2>Department List</h2>
 		
 		<ul>
-			{departments.length &&departments.map(d => <li>{d.name}</li>)}
+			{departments.length &&departments.map(d => <li key={d.id}><a href={`http://localhost:3000/departments/${d.id}`}>{d.name}</a></li>)}
 		</ul>
 		</>
 	)

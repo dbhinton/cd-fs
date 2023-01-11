@@ -5,7 +5,7 @@ import { Route, BrowserRouter as Router, Switch, Link } from "react-router-dom";
 import { EmployeeList } from "./components/EmployeeList";
 import { EmployeeDetail } from "./components/EmployeeDetail";
 import { DepartmentList } from "./components/DepartmentList";
-import { DepartmentDetails } from "./components/DepartmentDetails";
+import { DepartmentDetail } from "./components/DepartmentDetail";
 
 type AppProps = {};
 type AppState = {
@@ -20,6 +20,7 @@ export class App extends React.Component<AppProps, AppState> {
 
   render() {
     return (
+      <>
       <Router>
         <header>
           <h1>Employee Directory</h1>
@@ -34,17 +35,18 @@ export class App extends React.Component<AppProps, AppState> {
         </header>
         <div className="mainContent">
           <Switch>
+          <Route path="/employees/:id" render={({match}) => (
+              <EmployeeDetail employeeId={match.params.id}/>
+          )}>
+            </Route>
             <Route path="/employees">
               <EmployeeList />
             </Route>
-            <Route path="/employee/:id">
-              <EmployeeDetail />
-            </Route>
+            <Route path="/departments/:id" render={({ match }) => (
+    <DepartmentDetail departmentId={match.params.id} />
+)} />
             <Route path="/departments">
               <DepartmentList />
-            </Route>
-            <Route path="/department/:id">
-              <DepartmentDetails />
             </Route>
             <Route path="/">
               <EmployeeList />
@@ -52,6 +54,7 @@ export class App extends React.Component<AppProps, AppState> {
           </Switch>
         </div>
       </Router>
+      </>
     );
   }
 }

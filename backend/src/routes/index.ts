@@ -1,3 +1,4 @@
+
 import { Router, Response, Request } from 'express'
 import axios from 'axios'
 
@@ -7,20 +8,28 @@ const axiosInstance = axios.create({
     baseURL: 'http://localhost:4324',
   });
 
+  interface Employee {
+    id: string;
+    name: string;
+    birthday: string;
+    bio: string;
+    departmentId: string;
+}
+
 router.get('/v1/departments', (_req: Request, res: Response) => {
     res.send([
         {
-            id: 2,
+            id: '2',
             name: "Full Stack Development",
             employeeIds: ["82338", "32673"]
         },
         {
-            id: 3,
+            id: '3',
             name: "Connected Devices Engineering",
             employeeIds: ["82837"]
         },
         {
-            id: 4,
+            id: '4',
             name: "Android Engineering",
             employeeIds: ["82837"]
         },
@@ -28,7 +37,6 @@ router.get('/v1/departments', (_req: Request, res: Response) => {
 })
 
 router.get('/v1/employees', (_unused: Request, res: Response) => {
-    console.log('employees page')
     res.send([
         {
             id: "82837",
@@ -70,39 +78,35 @@ router.get('/v1/employees', (_unused: Request, res: Response) => {
 
 router.get('/v1/employees/:id', async (req: Request, res: Response) => {
     const employeeId = req.params.id
-    const employees = []
+    let employees: Employee[] = []
 
     // Get employees data
-    const employeeData = await fetch('/v1/employees')
-    const employeesList = await employeeData.json()
-    
-    // Filter employees by department
-    for (const employee of employeesList) {
-        if (employee.id === employeeId) {
-            employees.push(employee)
-        }
+    try {
+        employees = (await axiosInstance.get(`/v1/employees`)).data;
+        let employee = employees.filter(employee => employee.id === employeeId)
+        res.send(employee);
+    } catch (error) {
+        console.log(error);
     }
-
-    res.send(employees)
 })
 
+
+function filterEmployeesByDepartment(employees: Employee[], departmentId: string): Employee[] {
+    return employees.filter(employee => employee.departmentId === departmentId)
+}
+
 router.get('/v1/departments/:id', async (req: Request, res: Response) => {
-    console.log('depID')
-    const departmentId = req.params.id
-    const employees = []
+    const departmentId = req.params.id;
+    let employeesInDepartment: Employee[] = [];
 
     try {
         // Make a GET request to the /v1/employees endpoint
         const employeeData = await axiosInstance.get('/v1/employees');
-        const employeesList = employeeData.data;
+        const allEmployees = employeeData.data;
 
-        // Filter employees by department
-        for (const employee of employeesList) {
-            if (employee.departmentId === departmentId) {
-                employees.push(employee)
-            }
-        }
-        res.send(employees);
+        employeesInDepartment = filterEmployeesByDepartment(allEmployees, departmentId)
+        // Send the filtered list of employees to the client
+        res.send(employeesInDepartment);
     } catch (error) {
         console.log(error);
     }
