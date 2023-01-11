@@ -1,6 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import "./styles.css";
 
 interface Employee {
     id: string;
@@ -8,12 +9,6 @@ interface Employee {
     birthday: Date;
     bio: string;
     departmentId: string;
-}
-
-interface Department {
-    id: string;
-    name: string;
-    employeeIds: string[];
 }
 
 interface Props {
@@ -41,6 +36,8 @@ export const EmployeeDetail: React.FC<Props> = ({ employeeId }) => {
         <div>
 			<h2>Employee Detail</h2>
 			<h3>{employee.name}</h3>
+            <h3>{employee.bio}</h3>
+            <h3>{employee.birthday}</h3>
         </div>
     );
 };

@@ -21,8 +21,8 @@ export class App extends React.Component<AppProps, AppState> {
   render() {
     return (
       <>
-      <Router>
-        <header>
+            <Router>
+        <header className='header'>
           <h1>Employee Directory</h1>
           <ul>
             <li>
