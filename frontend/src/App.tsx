@@ -42,6 +42,9 @@ export class App extends React.Component<AppProps, AppState> {
             <Route path="/employees">
               <EmployeeList />
             </Route>
+            {/* Using render prop to determine what should be rendered when a match is found. 
+            match object is an object containing information about how the current route's 
+            path matched the requested URL. */}
             <Route path="/departments/:id" render={({ match }) => (
     <DepartmentDetail departmentId={match.params.id} />
 )} />

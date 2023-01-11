@@ -4,6 +4,8 @@ import axios from 'axios'
 
 const router: Router = Router()
 
+// Creates an instance of the Axios client with a custom baseURL of http://localhost:4324. This means that all requests made using this instance of the client will have the baseURL http://localhost:4324 prepended to the requested endpoint. This reduces 
+// code repetition 
 const axiosInstance = axios.create({
     baseURL: 'http://localhost:4324',
   });
@@ -36,6 +38,7 @@ router.get('/v1/departments', (_req: Request, res: Response) => {
     ])
 })
 
+// Made all Id's strings to avoid parsing issues
 router.get('/v1/employees', (_unused: Request, res: Response) => {
     res.send([
         {
@@ -76,6 +79,7 @@ router.get('/v1/employees', (_unused: Request, res: Response) => {
     ])
 })
 
+// Listening for a GET request sent to the /v1/employees/:id route
 router.get('/v1/employees/:id', async (req: Request, res: Response) => {
     const employeeId = req.params.id
     let employees: Employee[] = []
@@ -95,6 +99,7 @@ function filterEmployeesByDepartment(employees: Employee[], departmentId: string
     return employees.filter(employee => employee.departmentId === departmentId)
 }
 
+// Listening for a GET request sent to the /v1/departments/:id route
 router.get('/v1/departments/:id', async (req: Request, res: Response) => {
     const departmentId = req.params.id;
     let employeesInDepartment: Employee[] = [];
