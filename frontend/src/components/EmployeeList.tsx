@@ -41,6 +41,7 @@ type EmployeeDetailProps = {
 
 const EmployeeDetail = ({ employee }: EmployeeDetailProps) => {
 	return (
+		/* Added anchor tag so users can navigate to specific employees */
 		<a href={`http://localhost:3000/employees/${employee.id}`}><li className="employee_detail">
 			<h3>{employee.name}</h3>
 		</li>

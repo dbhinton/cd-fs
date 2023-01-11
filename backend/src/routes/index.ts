@@ -1,11 +1,11 @@
 
 import { Router, Response, Request } from 'express'
+// Decided to use axios because of ease of use and the fact that it's a standalone library
 import axios from 'axios'
 
 const router: Router = Router()
 
-// Creates an instance of the Axios client with a custom baseURL of http://localhost:4324. This means that all requests made using this instance of the client will have the baseURL http://localhost:4324 prepended to the requested endpoint. This reduces 
-// code repetition 
+// Creates an instance of the Axios client with a custom baseURL of http://localhost:4324 (The base URL for the server). This means that all requests made using this instance of the client will have the baseURL http://localhost:4324 prepended to the requested endpoint. This allows the code to be a little more dry.
 const axiosInstance = axios.create({
     baseURL: 'http://localhost:4324',
   });
