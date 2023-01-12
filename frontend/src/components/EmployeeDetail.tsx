@@ -35,9 +35,9 @@ export const EmployeeDetail: React.FC<Props> = ({ employeeId }) => {
     return (
         <div>
 			<h2>Employee Detail</h2>
-			<h3>{employee.name}</h3>
-            <h3>{employee.bio}</h3>
-            <h3>{employee.birthday}</h3>
+			<h3><b>Name: </b>{employee.name}</h3>
+            <h3><b>Bio: </b>{employee.bio}</h3>
+            <h3><b>Birth Date: </b>{employee.birthday}</h3>
         </div>
     );
 };
