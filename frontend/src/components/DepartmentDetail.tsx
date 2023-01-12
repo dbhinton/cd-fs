@@ -22,7 +22,7 @@ export const DepartmentDetail: React.FC<Props> = ({ departmentId }) => {
 //  useEffect hook to fetch the department details and employee details. The useEffect hook allows the component to run a piece of code, whenever the dependency passed to it changes. 
     useEffect(() => {
         const fetchData = async () => {
-            // using axios to make request to backend
+            // using axios to make request to backend to get departments and employees of that department
 			const departmentEmployeesResponse = await axios.get(`http://localhost:4324/v1/departments/${departmentId}`);
 			setDepartmentEmployees(departmentEmployeesResponse.data);
 			const departmentResponse = await axios.get(`http://localhost:4324/v1/departments`);
